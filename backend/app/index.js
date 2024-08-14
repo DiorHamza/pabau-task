@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql2/promise'); // Using promise-based API
+const mysql = require('mysql2/promise'); 
+const cors = require('cors'); 
 
 const app = express();
 const port = 5000;
 
 const pool = mysql.createPool({
-  host: 'mysql',
+  host: 'mysql',  
   user: 'my_user',
   password: 'my_password',
   database: 'my_database',
@@ -16,6 +17,7 @@ const pool = mysql.createPool({
 });
 
 app.use(bodyParser.json());
+app.use(cors()); 
 
 // API endpoint to fetch bookings
 app.get('/api/bookings', async (req, res) => {
@@ -42,6 +44,7 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
